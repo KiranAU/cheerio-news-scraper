@@ -37,7 +37,13 @@ var routes = require("./controllers/scraper_controller.js");
 
 app.use("/", routes);
 
-mongoose.connect("mongodb://localhost/week18day3mongoose");
+var databaseUri = "mongodb://localhost/week18day3mongoose";
+
+if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI);
+} else {
+    mongoose.connect(databaseUri);
+}
 
 var db = mongoose.connection;
 
